@@ -70,6 +70,7 @@ public class UserMainPage extends PageObject{
         //Display total list size of all products
         System.out.println("iList.size() = " + iListOnPage.size());
 
+        //Navigate through all Product Images. replace 3 with iListOnPage.size()
         for (int i=1;i< 3;i++){
             //Click on each item
             getDriver().findElement(By.xpath("//*[@id='items']/div/div[3]/div[2]/div/div[" + i+"]/a/div/div[1]")).click();
@@ -88,49 +89,60 @@ public class UserMainPage extends PageObject{
                //Writing to Excel File
 
                 int iColumnNumber = 4;
+                int iLastUsedRow = sheet1.getPhysicalNumberOfRows();
+            System.out.println("iLastUsedRow = " + iLastUsedRow);
+            System.out.println(sheet1.getRow(iLastUsedRow).getLastCellNum() + " = sheet1.getRow(iLastUsedRow).getLastCellNum()");
                 //Writing values
-                for (int iInt=0;iInt<sheet1.getPhysicalNumberOfRows();iInt++){
-                    for (int j=0;j<sheet1.getRow(i).getLastCellNum();j++) {
+              //  for (int iInt=0;iInt<sheet1.getPhysicalNumberOfRows();iInt++){
+
+                    for (int j=0;j<sheet1.getRow(iLastUsedRow).getLastCellNum();j++) {
 
                         //Get Title
                         System.out.println(getDriver().findElement(By.xpath("//div[@id='listing-page-cart-inner']/h1/span")).getText());
 
+                        String tempValue = getDriver().findElement(By.xpath("//div[@id='listing-page-cart-inner']/h1/span")).getText();
+
                         //Set Title
                         //sheet1.getRow(i).createCell(iJavlue).setCellValue(iInt);
-                        sheet1.getRow(iInt).createCell(iColumnNumber+1).setCellValue(getDriver().findElement(By.xpath("//div[@id='listing-page-cart-inner']/h1/span")).getText());
-
-
+                        sheet1.getRow(iLastUsedRow).createCell(iColumnNumber+1).setCellValue(1);
+                       // sheet1.getRow(5).createCell(5).setCellValue(tempValue);
 
                         //Get Price
                         System.out.println(getDriver().findElement(By.id("listing-price")).getText());
 
                         //Set Title
-                        sheet1.getRow(iInt).createCell(iColumnNumber+2).setCellValue(getDriver().findElement(By.id("listing-price")).getText());
+                        sheet1.getRow(iLastUsedRow).createCell(iColumnNumber+2).setCellValue(getDriver().findElement(By.id("listing-price")).getText());
 
                         //Get Description
                         System.out.println(getDriver().findElement(By.id("description-text")).getText());
 
                         //Set Description
-                        sheet1.getRow(iInt).createCell(iColumnNumber+3).setCellValue(getDriver().findElement(By.id("description-text")).getText());
+                        sheet1.getRow(iLastUsedRow).createCell(iColumnNumber+3).setCellValue(getDriver().findElement(By.id("description-text")).getText());
 
+                        int iNewColumnValue = iColumnNumber+3;
+                        //Set Images
+                        for(int k = 0; k<iList.size();k++){
+                            System.out.println("This is k = " + k +" = " + iList.get(k).getAttribute("src"));
+                            sheet1.getRow(iLastUsedRow).createCell(++iNewColumnValue).setCellValue(iList.get(k).getAttribute("src"));
+                        }
 
                         FileOutputStream fout=new FileOutputStream(new File("src/test/resources/myfile2.xlsx"));
                         wb.write(fout);
                         fout.close();
                     }
-                }
+               // }
 
 
 
 
 
 
-
+/*
             //Put ALL THE IMAGES IN THE END
             //Get list of all thumbnail image source
             for(WebElement sWB : iList){
                 System.out.println("sWB.URL = " + sWB.getAttribute("src"));
-            }
+            }*/
 
 
             System.out.println("STOP");

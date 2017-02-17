@@ -54,7 +54,7 @@ public class RunAndGet {
         //Writing values
         for (int i=0;i<sheet1.getPhysicalNumberOfRows();i++){
             for (int j=0;j<sheet1.getRow(i).getLastCellNum();j++) {
-                sheet1.getRow(i).createCell(iJavlue).setCellValue(i);
+                sheet1.getRow(i).createCell(iJavlue).setCellValue("Hello " + i);
                 FileOutputStream fout=new FileOutputStream(new File("src/test/resources/myfile2.xlsx"));
                 wb.write(fout);
                 fout.close();

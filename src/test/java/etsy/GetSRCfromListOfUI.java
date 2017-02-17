@@ -30,31 +30,29 @@ public class GetSRCfromListOfUI {
         System.out.println("Test begins");
         System.out.println(driver.getTitle());
 
-        WebElement we = driver.findElement(By.xpath("//*[@id='circles']"));
-        List<WebElement> iList = we.findElements(By.cssSelector(".thumbnail-nav img"));
-        System.out.println("iList.size() = " + iList.size());
-        //List <WebElement> iWB=null;
-        ArrayList<WebElement> iWB=null;
-        for (int i = 1; i< iList.size();i++) {
-            iWB.add(iList.get(i));
-        }
+        WebElement dropDown = driver.findElement( By.xpath( "//*[@id='circles']" ) );
+        List<WebElement> drop = dropDown.findElements(By.cssSelector(".thumbnail-nav img"));
+        System.out.println(" Size" + drop.size());
 
-        for(int i = 0; i<iWB.size();i++){
-            System.out.println("WEBELEMENT " + i + " = " + iWB.get(i));
-        }
+        //to get src of 1 element
+        String s = drop.get(0).getAttribute("src");
+        System.out.println("string s is " +s);
 
+        List <WebElement> iWe = drop;
 
-        for(WebElement sWB : iList){
-            System.out.println("sWB.getAttribute(\"src\") = " + sWB.getAttribute("src"));
-        }
-
-        /* System.out.println(driver.findElementById("circles"));
-        List<WebElement> listOfElements = driver.findElements(By.id("circles"));
-        System.out.println("listOfElements size = " + listOfElements.size());
-
-        for(WebElement e: listOfElements){
-            System.out.println("e = " + e);
+        /*for(int k = 0; k<drop.size();k++){
+            System.out.println("This is k = " + k +" = " + iWe.get(k).getAttribute("src"));
         }*/
+
+        for(int k = 0; k<drop.size();k++){
+            System.out.println("This is k = " + k +" = " + drop.get(k).getAttribute("src"));
+        }
+
+
+        for (WebElement we: drop) {
+            String src = we.getAttribute("src");
+            System.out.println("src of all elements " + src);
+        }
     }
 
     @After
