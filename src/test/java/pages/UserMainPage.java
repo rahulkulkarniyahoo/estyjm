@@ -67,12 +67,15 @@ public class UserMainPage extends PageObject{
         //Load the first sheet only.
         XSSFSheet sheet1 = wb.getSheetAt(0);
 
-        //Display total list size
+        //Display total list size of all products
         System.out.println("iList.size() = " + iListOnPage.size());
+
         for (int i=1;i< 3;i++){
+            //Click on each item
             getDriver().findElement(By.xpath("//*[@id='items']/div/div[3]/div[2]/div/div[" + i+"]/a/div/div[1]")).click();
 
             Thread.sleep(3000);
+
             //Get List of all image elements
             WebElement we = getDriver().findElement(By.xpath("//*[@id='circles']"));
 
@@ -81,11 +84,10 @@ public class UserMainPage extends PageObject{
             System.out.println("iList.size() = " + iList.size());
 
 
-
-
             // Confusion on what to write here to put values into the excel sheet
                //Writing to Excel File
-                int iJavlue = 4;
+
+                int iColumnNumber = 4;
                 //Writing values
                 for (int iInt=0;iInt<sheet1.getPhysicalNumberOfRows();iInt++){
                     for (int j=0;j<sheet1.getRow(i).getLastCellNum();j++) {
@@ -95,7 +97,7 @@ public class UserMainPage extends PageObject{
 
                         //Set Title
                         //sheet1.getRow(i).createCell(iJavlue).setCellValue(iInt);
-                        sheet1.getRow(iInt).createCell(iJavlue+1).setCellValue(getDriver().findElement(By.xpath("//div[@id='listing-page-cart-inner']/h1/span")).getText());
+                        sheet1.getRow(iInt).createCell(iColumnNumber+1).setCellValue(getDriver().findElement(By.xpath("//div[@id='listing-page-cart-inner']/h1/span")).getText());
 
 
 
@@ -103,13 +105,13 @@ public class UserMainPage extends PageObject{
                         System.out.println(getDriver().findElement(By.id("listing-price")).getText());
 
                         //Set Title
-                        sheet1.getRow(iInt).createCell(iJavlue+2).setCellValue(getDriver().findElement(By.id("listing-price")).getText());
+                        sheet1.getRow(iInt).createCell(iColumnNumber+2).setCellValue(getDriver().findElement(By.id("listing-price")).getText());
 
                         //Get Description
                         System.out.println(getDriver().findElement(By.id("description-text")).getText());
 
                         //Set Description
-                        sheet1.getRow(iInt).createCell(iJavlue+3).setCellValue(getDriver().findElement(By.id("description-text")).getText());
+                        sheet1.getRow(iInt).createCell(iColumnNumber+3).setCellValue(getDriver().findElement(By.id("description-text")).getText());
 
 
                         FileOutputStream fout=new FileOutputStream(new File("src/test/resources/myfile2.xlsx"));
