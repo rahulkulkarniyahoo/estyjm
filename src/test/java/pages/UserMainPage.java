@@ -90,12 +90,29 @@ public class UserMainPage extends PageObject{
 
                 int iColumnNumber = 4;
                 int iLastUsedRow = sheet1.getPhysicalNumberOfRows();
-            System.out.println("iLastUsedRow = " + iLastUsedRow);
-            System.out.println(sheet1.getRow(iLastUsedRow).getLastCellNum() + " = sheet1.getRow(iLastUsedRow).getLastCellNum()");
-                //Writing values
-              //  for (int iInt=0;iInt<sheet1.getPhysicalNumberOfRows();iInt++){
+        //    System.out.println("iLastUsedRow = " + iLastUsedRow);
+        //    System.out.println(sheet1.getRow(iLastUsedRow).getLastCellNum() + " = sheet1.getRow(iLastUsedRow).getLastCellNum()");
 
-                    for (int j=0;j<sheet1.getRow(iLastUsedRow).getLastCellNum();j++) {
+            int iJavlue = 4;
+            //Writing values
+            for (int inG=0;i<sheet1.getPhysicalNumberOfRows();i++){
+                for (int j=0;j<sheet1.getRow(inG).getLastCellNum();j++) {
+                    sheet1.getRow(inG).createCell(iJavlue).setCellValue("Hello " + inG);
+                    FileOutputStream fout=new FileOutputStream(new File("src/test/resources/myfile2.xlsx"));
+                    wb.write(fout);
+                    fout.close();
+                }
+            }
+
+            wb.close();
+
+
+
+
+                //Writing values
+                for (int iIntRow=0;iIntRow<sheet1.getPhysicalNumberOfRows();iIntRow++){
+
+                    for (int j=0;j<sheet1.getRow(iIntRow).getLastCellNum();j++) {
 
                         //Get Title
                         System.out.println(getDriver().findElement(By.xpath("//div[@id='listing-page-cart-inner']/h1/span")).getText());
@@ -104,34 +121,35 @@ public class UserMainPage extends PageObject{
 
                         //Set Title
                         //sheet1.getRow(i).createCell(iJavlue).setCellValue(iInt);
-                        sheet1.getRow(iLastUsedRow).createCell(iColumnNumber+1).setCellValue(1);
+                        sheet1.getRow(iIntRow).createCell(iColumnNumber+1).setCellValue(1);
                        // sheet1.getRow(5).createCell(5).setCellValue(tempValue);
 
                         //Get Price
                         System.out.println(getDriver().findElement(By.id("listing-price")).getText());
 
                         //Set Title
-                        sheet1.getRow(iLastUsedRow).createCell(iColumnNumber+2).setCellValue(getDriver().findElement(By.id("listing-price")).getText());
+                        sheet1.getRow(iIntRow).createCell(iColumnNumber+2).setCellValue(getDriver().findElement(By.id("listing-price")).getText());
 
                         //Get Description
                         System.out.println(getDriver().findElement(By.id("description-text")).getText());
 
                         //Set Description
-                        sheet1.getRow(iLastUsedRow).createCell(iColumnNumber+3).setCellValue(getDriver().findElement(By.id("description-text")).getText());
+                        sheet1.getRow(iIntRow).createCell(iColumnNumber+3).setCellValue(getDriver().findElement(By.id("description-text")).getText());
 
                         int iNewColumnValue = iColumnNumber+3;
                         //Set Images
                         for(int k = 0; k<iList.size();k++){
                             System.out.println("This is k = " + k +" = " + iList.get(k).getAttribute("src"));
-                            sheet1.getRow(iLastUsedRow).createCell(++iNewColumnValue).setCellValue(iList.get(k).getAttribute("src"));
+                            sheet1.getRow(iIntRow).createCell(++iNewColumnValue).setCellValue(iList.get(k).getAttribute("src"));
                         }
 
                         FileOutputStream fout=new FileOutputStream(new File("src/test/resources/myfile2.xlsx"));
                         wb.write(fout);
                         fout.close();
-                    }
-               // }
 
+                    }
+                }
+            wb.close();
 
 
 
