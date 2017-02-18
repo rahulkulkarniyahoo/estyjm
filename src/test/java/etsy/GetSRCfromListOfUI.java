@@ -5,6 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.ArrayList;
@@ -15,13 +16,17 @@ import java.util.List;
  */
 public class GetSRCfromListOfUI {
 
-    FirefoxDriver driver;
+    ChromeDriver driver;
     @Before
     public void startUp(){
         System.out.println("Started");
-        System.setProperty("webdriver.gecko.driver", "src/test/resources/geckodriver");
+       // System.setProperty("webdriver.gecko.driver", "src/test/resources/geckodriver");
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
+
+       //  <webdriver.chrome.driver>${project.basedir}/src/test/resources/chromedriver</webdriver.chrome.driver>
         System.out.println(" ********** Setting Property - Done *********");
-        driver = new FirefoxDriver();
+        //driver = new FirefoxDriver();
+        driver = new ChromeDriver();
         driver.get("https://www.etsy.com/uk/listing/465419784/printed-silk-kimono-top-blur");
     }
 
