@@ -1,6 +1,7 @@
 package etsy;
 
 import net.serenitybdd.core.annotations.findby.By;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,6 +9,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +38,7 @@ public class GetSRCfromListOfUI {
     }
 
     @Test
-    public void myGetSRC(){
+    public void myGetSRC() throws IOException {
         System.out.println("Test begins");
         System.out.println(driver.getTitle());
 
@@ -53,10 +60,16 @@ public class GetSRCfromListOfUI {
             System.out.println("This is k = " + k +" = " + drop.get(k).getAttribute("src"));
         }
 
-
+        int sImageNumber = 1;
         for (WebElement we: drop) {
             String src = we.getAttribute("src");
             System.out.println("src of all elements " + src);
+            src = src.replaceAll("75x75", "fullxfull");
+           // driver.get(src);
+            URL imageURL = new URL(src);
+            BufferedImage saveImage = ImageIO.read(imageURL);
+            ImageIO.write(saveImage, "png", new File("src/test/images/logo-forum_full" +sImageNumber +".png"));
+            sImageNumber++;
         }
     }
 
